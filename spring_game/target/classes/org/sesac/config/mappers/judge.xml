@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sesac.config.mappers.judge">
+
+<insert id="insert">
+  insert into judge
+  (title, content,relrule,regdate,hapdate)
+  values
+  ( #{title}, #{content},#{relrule}, #{regdate}, #{hapdate}  )
+  </insert>
+ 
+ <select id="selectAll" resultType="org.sesac.spring_game.vo.JudgeVo">
+  select * FROM JUDGE 
+  ORDER BY NO desc
+  LIMIT #{startNo} , #{size}
+  </select>
+
+  <select id="select" resultType="org.sesac.spring_game.vo.JudgeVo">
+  select * FROM JUDGE
+  WHERE no = #{no000000000000}
+  </select>
+  
+  <update id="update">
+  update judge
+  set
+  title=#{title}, content=#{content}, relrule=${relrule}, regdate=#{regdate}, hapdate=#{hapdate}
+  where no = #{no}
+  </update>
+  
+  <update id="delete">
+  delete from judge
+  where no = #{no}
+  </update>
+  
+  <!-- 총 할일 갯수 반환  -->
+  <select id="count" resultType="int">
+  select count(*) from judge
+  </select>
+  
+  <!-- 할일 검색 -->
+  <select id="search" resultType="org.sesac.spring_game.vo.JudgeVo">
+  select * FROM JUDGE 
+  WHERE
+  ${target} LIKE #{word}
+  -- title LIKE '%ssd%'
+  -- todo LIKE '%ssd%'
+  ORDER BY NO desc
+  LIMIT #{startNo} , #{size}
+  </select>
+  
+  <!-- 총 검색 갯수 반환  -->
+  <select id="search_count" resultType="int">
+  select count(*) from judge
+  WHERE
+  ${target} LIKE #{word}
+  </select>
+ 
+ 
+ 
+  </mapper>
